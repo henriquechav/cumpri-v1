@@ -1,0 +1,13 @@
+:root {
+  --provisory-color: #d3c1c3;
+  --background-color: #eff1ed;
+  --text-color: #000000;
+  --primary-color: #ffff00;
+  --success-color: #4caf50;
+  --failure-color: #d32f2f;
+  --font-family: "Nunito";
+}
+
+* {
+  box-sizing: border-box;
+}
