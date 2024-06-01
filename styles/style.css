@@ -1,13 +1,198 @@
 :root {
-  --provisory-color: #d3c1c3;
-  --background-color: #eff1ed;
-  --text-color: #000000;
-  --primary-color: #ffff00;
-  --success-color: #4caf50;
-  --failure-color: #d32f2f;
+  --white-color: #fff;
+  --light-color: #f0edee;
+  --dark-color: #0a090c;
+  --orange-color: #f9a620;
+  --green-color: #548c2f;
+  --green-color-transparent: #548c2f4b;
+  --purple-color: #8f3985;
   --font-family: "Nunito";
 }
 
 * {
+  font-family: var(--font-family);
   box-sizing: border-box;
+}
+
+body {
+  color: var(--dark-color);
+}
+
+/* ------ HEADER ------ */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: 10vh;
+  border-bottom: 1px solid var(--light-color);
+}
+
+.header-menu,
+.account-circle {
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" -25, "opsz" 0;
+}
+.header-menu:hover,
+.account-circle:hover {
+  cursor: pointer;
+}
+
+.header-menu {
+  margin: 1rem;
+  color: var(--dark-color);
+}
+
+.account-circle {
+  font-size: 3rem;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.experience-bar {
+  margin-left: auto;
+  padding: 0 1rem;
+  font-weight: 500;
+}
+.bar {
+  width: 100px;
+  height: 2px;
+  background-color: var(--light-color);
+  border-radius: 10px;
+}
+.upper-bar {
+  width: 25px;
+  height: 2px;
+  background-color: var(--green-color);
+  border-radius: 10px;
+}
+
+/* ------ MAIN-CONTAINER ------ */
+
+.main-container {
+  display: flex;
+}
+
+/* ------ ASIDE ------ */
+
+aside {
+  height: 90vh;
+  width: 20vw;
+  margin: 0;
+  padding: 0;
+  border-right: 1px solid var(--light-color);
+}
+
+.frames-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.frames-list li {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-left: 3rem;
+  padding: 0.5rem;
+  line-height: 2.5rem;
+  width: fit-content;
+}
+.frames-list li:hover {
+  cursor: pointer;
+  background-color: var(--white-color);
+}
+
+.create-frame-add {
+  position: absolute;
+  font-size: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -0.8rem;
+}
+
+.create-frame-btn {
+  position: relative;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding: 0.5rem;
+  margin-left: 3rem;
+  line-height: 2.5rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--white-color);
+}
+.create-frame-btn:hover {
+  cursor: pointer;
+}
+
+/* ------ MAIN ------ */
+
+.tasks-container {
+  height: 90vh;
+  width: 80vw;
+  display: flex;
+}
+
+.tasks-column {
+  height: 90vh;
+  width: 100%;
+}
+
+.tasks-wrapper {
+  border: 1px solid var(--dark-color);
+  border-radius: 20px;
+  width: 90%;
+  margin: 1rem auto;
+}
+
+.progress-bar {
+  position: relative;
+  height: 3rem;
+  border-radius: 18px 18px 0 0;
+  background-color: var(--green-color-transparent);
+  z-index: -1;
+}
+.progress-bar-fill {
+  display: relative;
+  height: 100%;
+  width: 30%;
+  border-radius: 18px 10px 10px 0;
+  background-color: var(--green-color);
+}
+.progress-bar-percentage {
+  color: var(--light-color);
+  font-size: 0.75rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+}
+
+.task-list-title {
+  margin: 1rem 0 1rem 1rem;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.tasks-list {
+  list-style: none;
+}
+
+.task {
+  padding: 0.75rem 0;
+  position: relative;
+}
+.task span {
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" -25, "opsz" 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -1.75rem;
+}
+.task span:hover {
+  content: "check";
+  cursor: pointer;
 }

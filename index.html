@@ -9,9 +9,71 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="stylesheet" href="/styles/normalize.css" />
     <link rel="stylesheet" href="/styles/style.css" />
     <title>MyTasks</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <span class="material-symbols-outlined header-menu">menu</span>
+      <h1 class="logo">MyTasks</h1>
+      <div class="experience-bar">
+        <small>Nível 0</small>
+        <div class="bar"><div class="upper-bar"></div></div>
+      </div>
+      <span class="material-symbols-outlined account-circle"
+        >account_circle</span
+      >
+    </header>
+
+    <div class="main-container">
+      <aside>
+        <ul class="frames-list">
+          <li>Tarefas</li>
+          <li>Programação</li>
+          <li>Faculdade</li>
+        </ul>
+
+        <button class="create-frame-btn">
+          <span class="material-symbols-outlined create-frame-add">add</span
+          >Criar quadro
+        </button>
+      </aside>
+
+      <main class="tasks-container">
+        <div class="tasks-column">
+          <div class="tasks-wrapper">
+            <div class="progress-bar">
+              <div class="progress-bar-fill"></div>
+              <span class="progress-bar-percentage">15%</span>
+            </div>
+            <h3 class="task-list-title">Tarefas do Dia</h3>
+            <ul class="tasks-list">
+              <li class="task">
+                <span class="material-symbols-outlined"
+                  >radio_button_unchecked</span
+                >Tarefa 1
+              </li>
+              <li class="task">
+                <span class="material-symbols-outlined"
+                  >radio_button_unchecked</span
+                >Tarefa 2
+              </li>
+              <li class="task">
+                <span class="material-symbols-outlined"
+                  >radio_button_unchecked</span
+                >Tarefa 3
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="tasks-column"></div>
+        <div class="tasks-column"></div>
+      </main>
+    </div>
+  </body>
 </html>
