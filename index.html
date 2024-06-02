@@ -19,8 +19,14 @@
   </head>
   <body>
     <header>
-      <span class="material-symbols-outlined header-menu">menu</span>
+      <span class="material-symbols-outlined header-menu unselectable"
+        >menu</span
+      >
       <h1 class="logo">MyTasks</h1>
+      <button class="create-task-list-btn">
+        <span class="material-symbols-outlined create-task-list-icon">add</span
+        >Criar lista de tarefas
+      </button>
       <div class="experience-bar">
         <small>Nível 0</small>
         <div class="bar"><div class="upper-bar"></div></div>
@@ -39,8 +45,13 @@
         </ul>
 
         <button class="create-frame-btn">
-          <span class="material-symbols-outlined create-frame-add">add</span
+          <span class="material-symbols-outlined create-frame-icon">add</span
           >Criar quadro
+        </button>
+
+        <button class="delete-frame-btn">
+          <span class="material-symbols-outlined delete-frame-icon">delete</span
+          >Deletar quadro
         </button>
       </aside>
 
@@ -70,10 +81,46 @@
               </li>
             </ul>
           </div>
+          <div class="tasks-wrapper">
+            <div class="progress-bar">
+              <div class="progress-bar-fill"></div>
+              <span class="progress-bar-percentage">15%</span>
+            </div>
+            <h3 class="task-list-title">Tarefas do Dia</h3>
+            <ul class="tasks-list">
+              <li class="task">
+                <span class="material-symbols-outlined"
+                  >radio_button_unchecked</span
+                >Tarefa 1
+              </li>
+              <li class="task">
+                <span class="material-symbols-outlined"
+                  >radio_button_unchecked</span
+                >Tarefa 2
+              </li>
+              <li class="task">
+                <span class="material-symbols-outlined"
+                  >radio_button_unchecked</span
+                >Tarefa 3
+              </li>
+              <li class="task">
+                <span class="material-symbols-outlined"
+                  >radio_button_unchecked</span
+                >Tarefa 4
+              </li>
+              <li class="task">
+                <span class="material-symbols-outlined"
+                  >radio_button_unchecked</span
+                >Tarefa 5
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="tasks-column"></div>
         <div class="tasks-column"></div>
       </main>
     </div>
+
+    <script src="./scripts/script.js"></script>
   </body>
 </html>
