@@ -18,100 +18,80 @@
     <title>MyTasks</title>
   </head>
   <body>
-    <header>
-      <span class="material-symbols-outlined header-menu unselectable"
-        >menu</span
-      >
-      <h1 class="logo">MyTasks</h1>
-      <button class="create-task-list-btn">
-        <span class="material-symbols-outlined create-task-list-icon">add</span
-        >Criar lista de tarefas
+    <!-- APP HEADER -->
+    <header id="app-header">
+      <!-- prettier-ignore -->
+      <span id="header-menu-icon" class="material-symbols-outlined unselectable">
+        menu
+      </span>
+
+      <h1 id="header-logo" class="unselectable">MyTasks</h1>
+
+      <button class="button">
+        <span class="material-symbols-outlined button-icon">add</span>
+        Criar tarefas
       </button>
+
       <div class="experience-bar">
-        <small>Nível 0</small>
-        <div class="bar"><div class="upper-bar"></div></div>
+        <small class="user-level">Nível 0</small>
+        <div class="bar"><div class="fill-bar"></div></div>
       </div>
-      <span class="material-symbols-outlined account-circle"
-        >account_circle</span
-      >
+
+      <!-- prettier-ignore -->
+      <span id="user-icon" class="material-symbols-outlined">
+        account_circle
+      </span>
     </header>
 
-    <div class="main-container">
-      <aside>
-        <ul class="frames-list">
+    <div id="app-panel">
+      <!-- APP SIDEBAR -->
+      <aside id="app-sidebar">
+        <ul class="frame-list">
           <li>Tarefas</li>
           <li>Programação</li>
           <li>Faculdade</li>
         </ul>
 
-        <button class="create-frame-btn">
-          <span class="material-symbols-outlined create-frame-icon">add</span
-          >Criar quadro
+        <button id="create-frame-button" class="button">
+          <span class="material-symbols-outlined button-icon">add</span>
+          Criar quadro
         </button>
 
-        <button class="delete-frame-btn">
-          <span class="material-symbols-outlined delete-frame-icon">delete</span
-          >Deletar quadro
+        <dialog id="create-frame-modal" class="app-modal">
+          <p class="modal-title">Criar novo quadro</p>
+          <input class="modal-input" type="text" />
+          <div class="modal-buttons">
+            <button id="create-frame-cancel" class="modal-cancel">
+              Cancelar
+            </button>
+            <button id="create-frame-submit" class="modal-submit">
+              Concluir
+            </button>
+          </div>
+        </dialog>
+
+        <button class="button">
+          <span class="material-symbols-outlined button-icon">delete</span>
+          Deletar quadro
         </button>
       </aside>
 
+      <!-- MAIN AREA -->
       <main class="tasks-container">
         <div class="tasks-column">
           <div class="tasks-wrapper">
             <div class="progress-bar">
               <div class="progress-bar-fill"></div>
-              <span class="progress-bar-percentage">15%</span>
+              <span class="progress-bar-percentage">0%</span>
             </div>
+
             <h3 class="task-list-title">Tarefas do Dia</h3>
+
             <ul class="tasks-list">
+              <!-- prettier-ignore -->
               <li class="task">
-                <span class="material-symbols-outlined"
-                  >radio_button_unchecked</span
-                >Tarefa 1
-              </li>
-              <li class="task">
-                <span class="material-symbols-outlined"
-                  >radio_button_unchecked</span
-                >Tarefa 2
-              </li>
-              <li class="task">
-                <span class="material-symbols-outlined"
-                  >radio_button_unchecked</span
-                >Tarefa 3
-              </li>
-            </ul>
-          </div>
-          <div class="tasks-wrapper">
-            <div class="progress-bar">
-              <div class="progress-bar-fill"></div>
-              <span class="progress-bar-percentage">15%</span>
-            </div>
-            <h3 class="task-list-title">Tarefas do Dia</h3>
-            <ul class="tasks-list">
-              <li class="task">
-                <span class="material-symbols-outlined"
-                  >radio_button_unchecked</span
-                >Tarefa 1
-              </li>
-              <li class="task">
-                <span class="material-symbols-outlined"
-                  >radio_button_unchecked</span
-                >Tarefa 2
-              </li>
-              <li class="task">
-                <span class="material-symbols-outlined"
-                  >radio_button_unchecked</span
-                >Tarefa 3
-              </li>
-              <li class="task">
-                <span class="material-symbols-outlined"
-                  >radio_button_unchecked</span
-                >Tarefa 4
-              </li>
-              <li class="task">
-                <span class="material-symbols-outlined"
-                  >radio_button_unchecked</span
-                >Tarefa 5
+                <span class="material-symbols-outlined">radio_button_unchecked</span>
+                Tarefa 1
               </li>
             </ul>
           </div>
