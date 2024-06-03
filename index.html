@@ -1,106 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-      rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet"
     />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="/styles/normalize.css" />
-    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/normalize.css"/>
+    <link rel="stylesheet" href="/styles/style.css"/>
     <title>MyTasks</title>
-  </head>
-  <body>
-    <!-- APP HEADER -->
-    <header id="app-header">
-      <!-- prettier-ignore -->
-      <span id="header-menu-icon" class="material-symbols-outlined unselectable">
-        menu
-      </span>
+</head>
+<body>
+    <div id="root">
 
-      <h1 id="header-logo" class="unselectable">MyTasks</h1>
-
-      <button class="button">
-        <span class="material-symbols-outlined button-icon">add</span>
-        Criar tarefas
-      </button>
-
-      <div class="experience-bar">
-        <small class="user-level">Nível 0</small>
-        <div class="bar"><div class="fill-bar"></div></div>
-      </div>
-
-      <!-- prettier-ignore -->
-      <span id="user-icon" class="material-symbols-outlined">
-        account_circle
-      </span>
-    </header>
-
-    <div id="app-panel">
-      <!-- APP SIDEBAR -->
-      <aside id="app-sidebar">
-        <ul class="frame-list">
-          <li>Tarefas</li>
-          <li>Programação</li>
-          <li>Faculdade</li>
-        </ul>
-
-        <button id="create-frame-button" class="button">
-          <span class="material-symbols-outlined button-icon">add</span>
-          Criar quadro
-        </button>
-
-        <dialog id="create-frame-modal" class="app-modal">
-          <p class="modal-title">Criar novo quadro</p>
-          <input class="modal-input" type="text" />
-          <div class="modal-buttons">
-            <button id="create-frame-cancel" class="modal-cancel">
-              Cancelar
+        <header class="header">
+            <span class="material-symbols-outlined header__menu-icon unselectable">menu</span>
+            <h1 class="header__logo unselectable">MyTasks</h1>
+            <button class="button header__button">
+                <span class="material-symbols-outlined button-icon">add</span>
+                Criar tarefas
             </button>
-            <button id="create-frame-submit" class="modal-submit">
-              Concluir
-            </button>
-          </div>
-        </dialog>
-
-        <button class="button">
-          <span class="material-symbols-outlined button-icon">delete</span>
-          Deletar quadro
-        </button>
-      </aside>
-
-      <!-- MAIN AREA -->
-      <main class="tasks-container">
-        <div class="tasks-column">
-          <div class="tasks-wrapper">
-            <div class="progress-bar">
-              <div class="progress-bar-fill"></div>
-              <span class="progress-bar-percentage">0%</span>
+            <div class="header__experience-bar">
+                <small class="header__user-level">Nível 0</small>
+                <div class="header__bar"><div class="header__fill-bar"></div></div>
             </div>
+            <span class="material-symbols-outlined unselectable header__user-icon">account_circle</span>
+        </header>
 
-            <h3 class="task-list-title">Tarefas do Dia</h3>
-
-            <ul class="tasks-list">
-              <!-- prettier-ignore -->
-              <li class="task">
-                <span class="material-symbols-outlined">radio_button_unchecked</span>
-                Tarefa 1
-              </li>
-            </ul>
-          </div>
+        <div id="app-panel" class="app-panel">
+            <aside id="sidebar" class="sidebar">
+                <ul class="sidebar__frame-list">
+                    <!-- <li class="button sidebar__frame-list-item">
+                        <span class="material-symbols-outlined button-icon">edit</span>
+                        Tarefas
+                    </li> -->
+                </ul>
+                <dialog id="edit-frame-modal" class="app-modal sidebar__edit-modal">
+                    <p class="modal-title">Editar quadro</p>
+                    <input id="edit-frame-input" class="modal-input" type="text"/>
+                    <div class="modal-buttons">
+                        <button id="edit-frame-delete" class="modal-cancel">Deletar</button>
+                        <button id="edit-frame-submit" class="modal-submit">Editar</button>
+                    </div>
+                </dialog>
+                <button id="create-frame-button" class="button">
+                    <span class="material-symbols-outlined button-icon">add</span>
+                    Criar quadro
+                </button>
+                <dialog id="create-frame-modal" class="app-modal">
+                    <p class="modal-title">Criar novo quadro</p>
+                    <input id="create-frame-input" class="modal-input" type="text" />
+                    <div class="modal-buttons">
+                        <button id="create-frame-cancel" class="modal-cancel">Cancelar</button>
+                        <button id="create-frame-submit" class="modal-submit">Concluir</button>
+                    </div>
+                </dialog>
+            </aside>
+      
+            <main class="main">
+                <div class="main__column">
+                    <!-- <div class="main__task-wrapper">
+                        <div class="task-wrapper__progress-bar">
+                            <div class="task-wrapper__progress-bar-fill"></div>
+                            <span class="task-wrapper__progress-bar-percentage">0%</span>
+                        </div>
+                        <h3 class="task-wrapper__title">Tarefas do Dia</h3>
+                        <ul class="task-wrapper__list">
+                            <li class="task-wrapper__task">
+                                <span class="material-symbols-outlined">radio_button_unchecked</span>
+                                Tarefa 1
+                            </li>
+                        </ul>
+                    </div> -->
+                </div>
+                <div class="main__column"></div>
+                <div class="main__column"></div>
+            </main>
         </div>
-        <div class="tasks-column"></div>
-        <div class="tasks-column"></div>
-      </main>
+
     </div>
 
-    <script src="./scripts/script.js"></script>
-  </body>
+    <script type="module" src="./scripts/main.js"></script>
+</body>
 </html>
