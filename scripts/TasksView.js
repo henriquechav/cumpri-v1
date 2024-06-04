@@ -43,6 +43,22 @@ export default class TasksView {
         const editFrameButton = this.root.querySelector("#edit-frame-submit");
         const editFrameInput = this.root.querySelector("#edit-frame-input");
 
+        // TODO: correct confusion with old and new frame name
+        editFrameButton.addEventListener("click", () => {
+            const frameNameToUpdate = editFrameModal.dataset.frameName;
+            const frameIdToUpdate = editFrameModal.dataset.frameId;
+
+            if (editFrameInput.value == frameNameToUpdate) {
+                editFrameModal.close();
+            } else {
+                onFrameUpdate(frameIdToUpdate, frameNameToUpdate);
+            }
+        });
+
+        deleteFrameButton.addEventListener("click", () => {
+            const frameToDeleteId = editFrameModal.dataset.frameId;
+            onFrameDelete(frameToDeleteId);
+        });
     }
 
     updateFramesView(frameList) {
@@ -51,7 +67,7 @@ export default class TasksView {
         frameListContainer.innerHTML = "";
 
         for (const frame of frameList) {
-            const html = this._createFrameItemHTML(frame.name);
+            const html = this._createFrameItemHTML(frame.name, frame.id);
             frameListContainer.insertAdjacentHTML("beforeend", html);
         }
 
@@ -67,15 +83,17 @@ export default class TasksView {
             frameButton.addEventListener("mouseleave", () => {
                 editFrameIcon.style.display = "none";
             });
-            
+                        
             editFrameIcon.addEventListener("click", () => {
-                this._initEditFrameModal()
-                // editFrameInput.value = frameButton.innerHTML
-                // .replace(
-                //     '<span class="material-symbols-outlined button-icon" style="display: inherit;">edit</span>',
-                //     ""
-                // ).trim();
-                // editFrameModal.showModal();
+                // set edit frame modal input with frame name
+                const editFrameInput = this.root.querySelector("#edit-frame-input");
+                editFrameInput.value = frameButton.dataset.frameName;
+                
+                // put frameId and frameName in modal dataset
+                const editFrameModal = this.root.querySelector("#edit-frame-modal");
+                editFrameModal.dataset.frameId = frameButton.dataset.frameId;
+                editFrameModal.dataset.frameName = frameButton.dataset.frameName;
+                editFrameModal.showModal();
             });
         });
     }
@@ -84,13 +102,9 @@ export default class TasksView {
 
     }
 
-    _initFrameModal() {
-        
-    }
-
-    _createFrameItemHTML(frameName) {
+    _createFrameItemHTML(frameName, frameId) {
         return `
-            <li class="button sidebar__frame-list-item">
+            <li class="button sidebar__frame-list-item" data-frame-id="${frameId}" data-frame-name="${frameName}">
                 <span class="material-symbols-outlined button-icon">edit</span>
                 ${frameName}
             </li>
