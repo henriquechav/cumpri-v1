@@ -1,6 +1,5 @@
 import TasksAPI from "./TasksAPI.js";
 
-    
 
 console.log(TasksAPI.getData());
 

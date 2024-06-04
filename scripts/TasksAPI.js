@@ -66,13 +66,21 @@ export default class TasksAPI {
 
     static deleteFrame(frameId) {
         const frameList = TasksAPI.getData();
+        // create new frame list without deleted frame
         const newFrameList = frameList.filter(frame => frame.frameId != frameId);
 
         localStorage.setItem("mytasks-data", JSON.stringify(newFrameList));
     }
 
-    static deleteTaskSet(taskSetId) {
+    static deleteTaskSet(frameId, taskSetId) {
+        const frameList = TasksAPI.getData();
+        const parentFrame = frameList.find(frame => frame.frameId == frameId);
+        // create new taskSetList without deleted taskSet
+        const newTaskSetList = parentFrame.taskSetList.filter(taskSet => taskSet.taskSetId != taskSetId);
+    
+        parentFrame.taskSetList = newTaskSetList;
 
+        localStorage.setItem("mytasks-data", JSON.stringify(frameList));
     }
 }
 
