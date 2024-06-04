@@ -18,17 +18,17 @@ frameButtonList.forEach((frameButton) => addEditFeature(frameButton));
 
 /* ------------- CREATE FRAME MODAL ------------- */
 
-const createFrameModal = document.querySelector("#create-frame-modal");
-const createFrameButton = document.querySelector("#create-frame-button");
-const createFrameCancel = document.querySelector("#create-frame-cancel");
+// const createFrameModal = document.querySelector("#create-frame-modal");
+// const createFrameButton = document.querySelector("#create-frame-button");
+// const createFrameCancel = document.querySelector("#create-frame-cancel");
 
-createFrameButton.addEventListener("click", (event) => {
-  createFrameModal.showModal();
-});
+// createFrameButton.addEventListener("click", (event) => {
+//   createFrameModal.showModal();
+// });
 
-createFrameCancel.addEventListener("click", (event) => {
-  createFrameModal.close();
-});
+// createFrameCancel.addEventListener("click", (event) => {
+//   createFrameModal.close();
+// });
 
 const frameNameInput = document.querySelector("#create-frame-input");
 const frameList = document.querySelector("#app-sidebar .frame-list");
@@ -65,26 +65,26 @@ const editFrameInput = document.querySelector("#edit-frame-input");
 
 /* ------------- FUNCTIONS ------------- */
 
-function addEditFeature(frameButton) {
-  const editFrameIcon = frameButton.firstElementChild;
+// function addEditFeature(frameButton) {
+//   const editFrameIcon = frameButton.firstElementChild;
 
-  frameButton.addEventListener("mouseover", (event) => {
-    editFrameIcon.style.display = "inherit";
-  });
+//   frameButton.addEventListener("mouseover", (event) => {
+//     editFrameIcon.style.display = "inherit";
+//   });
 
-  frameButton.addEventListener("mouseleave", (event) => {
-    editFrameIcon.style.display = "none";
-  });
+//   frameButton.addEventListener("mouseleave", (event) => {
+//     editFrameIcon.style.display = "none";
+//   });
 
-  editFrameIcon.addEventListener("click", (event) => {
-    editFrameInput.value = frameButton.innerHTML
-      .replace(
-        '<span class="material-symbols-outlined button-icon" style="display: inherit;">edit</span>',
-        ""
-      )
-      .trim();
-    editFrameModal.showModal();
-  });
-}
+//   editFrameIcon.addEventListener("click", (event) => {
+//     editFrameInput.value = frameButton.innerHTML
+//       .replace(
+//         '<span class="material-symbols-outlined button-icon" style="display: inherit;">edit</span>',
+//         ""
+//       )
+//       .trim();
+//     editFrameModal.showModal();
+//   });
+// }
 
 /* ------------- END OF FUNCTIONS ------------- */

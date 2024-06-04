@@ -1,18 +1,13 @@
 import TasksAPI from "./TasksAPI.js";
-
-TasksAPI.updateGroup(1, {
-    id: 1,
-    title: "Hoje",
-    taskList: [{
-        desc: "Fazer faxina",
-        done: true
-    },{
-        desc: "Ler a Odisseia de Homero",
-        done: false
-    },{
-        desc: "Ler a Ilíada de Homero",
-        done: false
-    }]
-});
+import TasksView from "./TasksView.js";
 
 console.log(TasksAPI.getData());
+
+const root = document.querySelector("#root");
+const view = new TasksView(root, {
+    onFrameCreate(frameName) {
+        console.log("Frame created: " + frameName);
+    }
+});
+
+view.updateFramesView(TasksAPI.getData());
