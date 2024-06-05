@@ -23,10 +23,28 @@
         <header class="header">
             <span class="material-symbols-outlined header__menu-icon unselectable">menu</span>
             <h1 class="header__logo unselectable">MyTasks</h1>
-            <button class="button header__button">
+            <button id="create-group-button" class="button header__button">
                 <span class="material-symbols-outlined button-icon">add</span>
                 Criar tarefas
             </button>
+            <dialog id="create-group-modal" class="app-modal">
+                <p class="modal-title">Criar lista de tarefas</p>
+                <input id="create-group-input" class="modal-input" type="text" placeholder="Título"/>
+                <div class="modal-input-list">
+                    <div class="modal-input-wrapper">
+                        <input class="modal-input modal-input--task" type="text" placeholder="tarefa"/>
+                        <span class="material-symbols-outlined drag-task-icon unselectable">drag_indicator</span>
+                    </div>
+                </div>
+                <div class="modal-group-buttons">
+                    <span class="material-symbols-outlined task-add-icon unselectable">add</span>
+                    <span class="material-symbols-outlined task-remove-icon unselectable">remove</span>
+                </div>
+                <div class="modal-buttons">
+                    <button id="create-group-cancel" class="modal-cancel">Cancelar</button>
+                    <button id="create-group-submit" class="modal-submit">Concluir</button>
+                </div>
+            </dialog>
             <div class="header__experience-bar">
                 <small class="header__user-level">Nível 0</small>
                 <div class="header__bar"><div class="header__fill-bar"></div></div>

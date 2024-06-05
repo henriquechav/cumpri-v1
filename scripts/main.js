@@ -20,6 +20,9 @@ const view = new TasksView(root, {
     }, 
     onFrameDelete(frameId) {
         console.log("Delete frame with id " + frameId);
+    },
+    onGroupCreate(groupTitle, taskList) {
+        console.log("New group " + groupTitle + " created! With list of tasks " + taskList);
     }
 });
 
