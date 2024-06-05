@@ -1,6 +1,16 @@
+/**
+ * TODO: 
+ * 
+ * - onGroupUpdate;
+ * - onGroupDelete;
+ * 
+ * 
+ */
+
 export default class TasksView {
     constructor(root, { onFrameSelect, onFrameCreate, onFrameUpdate, onFrameDelete, onGroupCreate, onGroupUpdate, onGroupDelete }) {
         this.root = root;
+
         // setting up handlers to comunicate with App
         this.onFrameSelect = onFrameSelect;
         this.onFrameCreate = onFrameCreate;
@@ -9,6 +19,7 @@ export default class TasksView {
         this.onGroupCreate = onGroupCreate;
         this.onGroupUpdate = onGroupUpdate;
         this.onGroupDelete = onGroupDelete;
+
         // initializing modal views to interact with user
         this._initCreateFrameModal();
         this._initEditFrameModal();
@@ -26,15 +37,16 @@ export default class TasksView {
             frameListContainer.insertAdjacentHTML("beforeend", html);
         }
 
-        // add edit button for each frame item
-        
-        frameListContainer.querySelectorAll(".sidebar__frame-list-item").forEach(frameButton => {
+        const frameButtonList = frameListContainer.querySelectorAll(".sidebar__frame-list-item");
+
+        // ADD EDIT BUTTON FOR EACH FRAME ITEM 
+        frameButtonList.forEach(frameButton => {
             const editFrameIcon = frameButton.firstElementChild;
             
+            // show edit icon only when mouse is over frame button
             frameButton.addEventListener("mouseover", () => {
                 editFrameIcon.style.display = "inherit";
             });
-            
             frameButton.addEventListener("mouseleave", () => {
                 editFrameIcon.style.display = "none";
             });
@@ -51,15 +63,50 @@ export default class TasksView {
                 editFrameModal.showModal();
             });
         });
+
+        // ADD SELECTED OPTION FOR EACH FRAME ITEM
+        frameButtonList.forEach(frameButton => {
+            frameButton.addEventListener("click", () => {
+                const frameId = frameButton.dataset.frameId;
+                this.onFrameSelect(frameId);
+            });
+        }); 
     }
 
-    updateGroupsView() {
+    updateSelectedFrame(frame) {
+        this._updateGroupsView(frame.groupList);
 
+        this.root.querySelectorAll(".sidebar__frame-list-item").forEach(frameListItem => {
+            frameListItem.classList.remove("sidebar__frame-list-item--selected");
+        });
+
+        const selectedFrame = this.root.querySelector(`.sidebar__frame-list-item[data-frame-id="${frame.id}"]`);
+        selectedFrame.classList.add("sidebar__frame-list-item--selected");
+    }
+
+    _updateGroupsView(groupList) {
+        const groupListContainer = this.root.querySelector(".main");
+
+        // empty group views
+        const groupColumnList = groupListContainer.querySelectorAll(".main__column");
+        groupColumnList.forEach(groupColumn => {
+            groupColumn.innerHTML = "";
+        });
+
+        let cnt = 0; // counter
+        for (const group of groupList) {
+            const html = this._createTaskWrapperHTML(group);
+            groupColumnList[cnt].insertAdjacentHTML("beforeend", html);
+            
+            if (cnt == (groupColumnList.length-1)) {
+                cnt = 0;
+            } else {
+                cnt = cnt + 1;
+            }
+        }
     }
 
     _initCreateFrameModal() {
-        /* INITIALIZE CREATE FRAME MODAL */
-
         const createFrameModal = this.root.querySelector("#create-frame-modal");
         const createFrameButton = this.root.querySelector("#create-frame-button");
         const createFrameCancel = this.root.querySelector("#create-frame-cancel");
@@ -87,8 +134,6 @@ export default class TasksView {
     }
 
     _initEditFrameModal() {
-        /* INITIALIZE EDIT FRAME MODAL */
-
         const editFrameModal = this.root.querySelector("#edit-frame-modal");
         const deleteFrameButton = this.root.querySelector("#edit-frame-delete");
         const editFrameButton = this.root.querySelector("#edit-frame-submit");
@@ -98,28 +143,28 @@ export default class TasksView {
             const frameIdToUpdate = editFrameModal.dataset.frameId;
             const frameNameToUpdate = editFrameInput.value;
 
+            // if updating to existing frame name, nothing happens and modal is closed
             if (editFrameModal.dataset.frameName == frameNameToUpdate) {
                 editFrameModal.close();
             } else {
-                onFrameUpdate(frameIdToUpdate, frameNameToUpdate);
+                this.onFrameUpdate(frameIdToUpdate, frameNameToUpdate);
                 editFrameModal.close();
             }
         });
 
         deleteFrameButton.addEventListener("click", () => {
             const frameToDeleteId = editFrameModal.dataset.frameId;
-            onFrameDelete(frameToDeleteId);
+            this.onFrameDelete(frameToDeleteId);
             editFrameModal.close();
         });
     }
 
     _initCreateGroupModal() {
-        /* INITIALIZE CREATE GROUP MODAL */
-
         const createGroupModal = this.root.querySelector("#create-group-modal");
         const createGroupButton = this.root.querySelector("#create-group-button");
         const createGroupCancel = this.root.querySelector("#create-group-cancel");
         const createGroupInput = this.root.querySelector("#create-group-input");
+
         const taskInputContainer = this.root.querySelector(".modal-input-list");
 
         createGroupButton.addEventListener("click", () => {
@@ -127,10 +172,12 @@ export default class TasksView {
         });
         
         createGroupCancel.addEventListener("click", () => {
+            // reduce the number of task inputs to only one
             while (taskInputContainer.children.length > 1) {
                 taskInputContainer.removeChild(taskInputContainer.lastChild);
             }
 
+            // clear input values
             taskInputContainer.querySelector(".modal-input--task").value = "";
             createGroupInput.value = "";
             createGroupModal.close();
@@ -159,6 +206,7 @@ export default class TasksView {
             const taskInputList = taskInputContainer.querySelectorAll(".modal-input--task");
             const taskList = [];
 
+            // push every task input value into taskList (if it's not empty)
             taskInputList.forEach(taskInput => {
                 if (taskInput.value != "") {
                     taskList.push(taskInput.value); 
@@ -166,11 +214,12 @@ export default class TasksView {
             })
 
             if (groupTitle != "") { 
-                onGroupCreate(groupTitle, taskList);
+                this.onGroupCreate(groupTitle, taskList);
+
+                // clear inputs after send info
                 while (taskInputContainer.children.length > 1) {
                     taskInputContainer.removeChild(taskInputContainer.lastChild);
                 }
-    
                 taskInputContainer.querySelector(".modal-input--task").value = "";
                 createGroupInput.value = "";
                 createGroupModal.close();            
@@ -194,5 +243,36 @@ export default class TasksView {
                 <span class="material-symbols-outlined drag-task-icon unselectable">drag_indicator</span>
             </div>
         `;
+    }
+
+    _createTaskWrapperHTML(group) {
+        return `
+            <div class="main__task-wrapper" data-group-id="${group.id}">
+                <div class="task-wrapper__progress-bar">
+                    <div class="task-wrapper__progress-bar-fill" style="width: ${group.percentage}%;"></div>
+                    <span class="task-wrapper__progress-bar-percentage">${Math.trunc(group.percentage)}%</span>
+                </div>
+                <h3 class="task-wrapper__title">${group.title}</h3>
+                ${this._createTaskListHTML(group.taskList)}
+            </div> 
+        `;
+    }
+
+    _createTaskListHTML(taskList) {
+        let html = `<ul class="task-wrapper__list">`;
+
+        for (const task of taskList) {
+            html = html + `
+                <li class="task-wrapper__task ${task.done ? "task-wrapper__task--done" : ""}" 
+                data-task-pos="${task.pos}">
+                    <span class="material-symbols-outlined">${task.done ? "check" : "radio_button_unchecked"}</span>
+                    ${task.desc}
+                </li>
+            `;
+        }
+
+        html = html + "</ul>";
+
+        return html;
     }
 }

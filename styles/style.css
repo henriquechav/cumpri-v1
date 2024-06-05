@@ -242,6 +242,10 @@ body {
   background-color: var(--white-color);
 }
 
+.sidebar__frame-list-item--selected {
+  font-weight: bold;
+};
+
 .sidebar__frame-list-item span {
   display: none;
 }
@@ -315,6 +319,9 @@ body {
   left: -1.75rem;
 }
 .task-wrapper__task span:hover {
-  content: "check";
   cursor: pointer;
+}
+
+.task-wrapper__task--done {
+  text-decoration: line-through;
 }
