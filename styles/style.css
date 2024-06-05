@@ -243,7 +243,7 @@ body {
 }
 
 .sidebar__frame-list-item--selected {
-  font-weight: bold;
+  font-weight: 600;
 };
 
 .sidebar__frame-list-item span {

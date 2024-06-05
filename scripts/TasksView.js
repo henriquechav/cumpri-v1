@@ -42,6 +42,7 @@ export default class TasksView {
         // ADD EDIT BUTTON FOR EACH FRAME ITEM 
         frameButtonList.forEach(frameButton => {
             const editFrameIcon = frameButton.firstElementChild;
+            editFrameIcon.style.display = "none";
             
             // show edit icon only when mouse is over frame button
             frameButton.addEventListener("mouseover", () => {
@@ -76,12 +77,14 @@ export default class TasksView {
     updateSelectedFrame(frame) {
         this._updateGroupsView(frame.groupList);
 
-        this.root.querySelectorAll(".sidebar__frame-list-item").forEach(frameListItem => {
-            frameListItem.classList.remove("sidebar__frame-list-item--selected");
-        });
-
-        const selectedFrame = this.root.querySelector(`.sidebar__frame-list-item[data-frame-id="${frame.id}"]`);
-        selectedFrame.classList.add("sidebar__frame-list-item--selected");
+        const frameList = this.root.querySelectorAll(".sidebar__frame-list-item");
+        for (const frameListItem of frameList) {
+            if (frameListItem.dataset.frameId == frame.id) {
+                frameListItem.classList.add("sidebar__frame-list-item--selected"); 
+            } else {
+                frameListItem.classList.remove("sidebar__frame-list-item--selected");
+            }
+        }
     }
 
     _updateGroupsView(groupList) {
@@ -265,7 +268,7 @@ export default class TasksView {
             html = html + `
                 <li class="task-wrapper__task ${task.done ? "task-wrapper__task--done" : ""}" 
                 data-task-pos="${task.pos}">
-                    <span class="material-symbols-outlined">${task.done ? "check" : "radio_button_unchecked"}</span>
+                    <span class="material-symbols-outlined unselectable">${task.done ? "check" : "radio_button_unchecked"}</span>
                     ${task.desc}
                 </li>
             `;

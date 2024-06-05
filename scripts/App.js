@@ -23,26 +23,76 @@ export default class App {
 
     _setActiveFrame(frame) {
         this.activeFrame = frame;
-        
+
         this.view.updateSelectedFrame(frame);
     }
 
     _handlers() {
         return {
-            onFrameCreate(frameName) {
-                console.log("Frame created: " + frameName);
+            onFrameCreate: frameName => {
+                const newFrame = {
+                    name: frameName
+                };
+
+                TasksAPI.createFrame(newFrame);
+
+                this._refreshTasks();
+                this._setActiveFrame(this.frameList[this.frameList.length-1]);
             },
-            onFrameUpdate(frameId, frameName) {
-                console.log("Update frame id " + frameId + " to new name " + frameName);
+            onFrameUpdate: (frameId, frameName) => {
+                const frameUpdated = {
+                    id: frameId,
+                    name: frameName
+                };
+
+                TasksAPI.updateFrameName(frameUpdated);
+
+                this._refreshTasks();
+
+                const selectedFrame = this.frameList.find(frame => frame.id == frameId);
+                this._setActiveFrame(selectedFrame);
             }, 
-            onFrameDelete(frameId) {
-                console.log("Delete frame with id " + frameId);
+            onFrameDelete: frameId => {
+                TasksAPI.deleteFrame(frameId);
+
+                this._refreshTasks();
+
+                if (this.frameList.length > 0) {
+                    this._setActiveFrame(this.frameList[0]);
+                } else {
+                    this._setActiveFrame(null);
+                }
             },
-            onGroupCreate(groupTitle, taskList) {
-                console.log("New group " + groupTitle + " created! With list of tasks " + taskList);
+            onGroupCreate: (groupTitle, taskList) => {
+                // create frame if there isn't any active
+                if (this.activeFrame == null) {
+                    TasksAPI.createFrame({name: "Tarefas"});
+                    this._refreshTasks();
+                    this._setActiveFrame(this.frameList[0]);
+                } 
+
+                const newTaskList = taskList.map(taskDesc => {
+                    return {
+                        desc: taskDesc,
+                        done: false
+                    };
+                });
+
+                TasksAPI.createGroup(this.activeFrame.id, {
+                    title: groupTitle,
+                    taskList: newTaskList
+                });
+
+                // reload groups view
+                this._refreshTasks();
+
+                const selectedFrame = this.frameList.find(frame => frame.id == this.activeFrame.id);
+                this._setActiveFrame(selectedFrame);
             },
-            onFrameSelect(frameId) {
-                console.log("Frame " + frameId + " was selected!");
+            onFrameSelect: frameId => {                
+                const selectedFrame = this.frameList.find(frame => frame.id == frameId);
+                
+                this._setActiveFrame(selectedFrame);
             }
         };
     }
