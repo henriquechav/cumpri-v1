@@ -60,7 +60,8 @@ export default class App {
                 if (this.frameList.length > 0) {
                     this._setActiveFrame(this.frameList[0]);
                 } else {
-                    this._setActiveFrame(null);
+                    // clear groups view if there is no frame
+                    this._setActiveFrame({groupList: []});
                 }
             },
             onGroupCreate: (groupTitle, taskList) => {

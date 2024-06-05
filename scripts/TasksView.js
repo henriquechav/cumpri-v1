@@ -96,6 +96,7 @@ export default class TasksView {
             groupColumn.innerHTML = "";
         });
 
+        // distribute groups into the three columns
         let cnt = 0; // counter
         for (const group of groupList) {
             const html = this._createTaskWrapperHTML(group);
