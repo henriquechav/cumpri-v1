@@ -94,6 +94,16 @@ export default class App {
                 const selectedFrame = this.frameList.find(frame => frame.id == frameId);
                 
                 this._setActiveFrame(selectedFrame);
+            },
+            onTaskDone: (groupId, taskPos) => {
+                const groupToUpdate = this.activeFrame.groupList.find(group => group.id == groupId);
+                groupToUpdate.taskList[taskPos-1].done = true;
+
+                TasksAPI.updateGroup(this.activeFrame.id, groupToUpdate);
+
+                this._refreshTasks();
+                const selectedFrame = this.frameList.find(frame => frame.id == this.activeFrame.id);
+                this._setActiveFrame(selectedFrame);
             }
         };
     }

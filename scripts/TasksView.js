@@ -1,14 +1,5 @@
-/**
- * TODO: 
- * 
- * - onGroupUpdate;
- * - onGroupDelete;
- * 
- * 
- */
-
 export default class TasksView {
-    constructor(root, { onFrameSelect, onFrameCreate, onFrameUpdate, onFrameDelete, onGroupCreate, onGroupUpdate, onGroupDelete }) {
+    constructor(root, { onFrameSelect, onFrameCreate, onFrameUpdate, onFrameDelete, onGroupCreate, onGroupUpdate, onGroupDelete, onTaskDone }) {
         this.root = root;
 
         // setting up handlers to comunicate with App
@@ -19,6 +10,7 @@ export default class TasksView {
         this.onGroupCreate = onGroupCreate;
         this.onGroupUpdate = onGroupUpdate;
         this.onGroupDelete = onGroupDelete;
+        this.onTaskDone = onTaskDone;
 
         // initializing modal views to interact with user
         this._initCreateFrameModal();
@@ -108,6 +100,30 @@ export default class TasksView {
                 cnt = cnt + 1;
             }
         }
+
+        // permit mark tasks as done, if it isn't
+        const doneButtonList = groupListContainer.querySelectorAll(".done-button-icon");
+
+        doneButtonList.forEach(doneButton => {
+            const taskItem = doneButton.parentElement;
+
+            if (taskItem.dataset.taskDone == "false") {
+                doneButton.addEventListener("mouseover", () => {
+                    doneButton.innerHTML = "check";
+                });
+    
+                doneButton.addEventListener("mouseleave", () => {
+                    doneButton.innerHTML = "radio_button_unchecked";
+                });
+    
+                doneButton.addEventListener("click", () => {
+                    const groupId = taskItem.dataset.groupId;
+                    const taskPos = taskItem.dataset.taskPos;
+    
+                    this.onTaskDone(groupId, taskPos);
+                });   
+            }
+        });
     }
 
     _initCreateFrameModal() {
@@ -257,19 +273,19 @@ export default class TasksView {
                     <span class="task-wrapper__progress-bar-percentage">${Math.trunc(group.percentage)}%</span>
                 </div>
                 <h3 class="task-wrapper__title">${group.title}</h3>
-                ${this._createTaskListHTML(group.taskList)}
+                ${this._createTaskListHTML(group.taskList, group.id)}
             </div> 
         `;
     }
 
-    _createTaskListHTML(taskList) {
+    _createTaskListHTML(taskList, groupId) {
         let html = `<ul class="task-wrapper__list">`;
 
         for (const task of taskList) {
             html = html + `
                 <li class="task-wrapper__task ${task.done ? "task-wrapper__task--done" : ""}" 
-                data-task-pos="${task.pos}">
-                    <span class="material-symbols-outlined unselectable">${task.done ? "check" : "radio_button_unchecked"}</span>
+                data-task-pos="${task.pos}" data-group-id="${groupId}" data-task-done="${task.done}">
+                    <span class="material-symbols-outlined unselectable done-button-icon">${task.done ? "check" : "radio_button_unchecked"}</span>
                     ${task.desc}
                 </li>
             `;
