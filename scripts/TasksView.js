@@ -130,8 +130,6 @@ export default class TasksView {
         const editGroupIconList = groupListContainer.querySelectorAll(".edit-group-icon");
         const editGroupModal = this.root.querySelector("#edit-group-modal");
         const editGroupInput = editGroupModal.querySelector("#edit-group-input");
-        const editGroupButton = editGroupModal.querySelector("#edit-group-submit");
-        const deleteGroupButton = editGroupModal.querySelector("#edit-group-cancel");
         const taskInputList = editGroupModal.querySelector(".modal-input-list");
 
         editGroupIconList.forEach(editGroupIcon => {
@@ -308,6 +306,21 @@ export default class TasksView {
         deleteGroupButton.addEventListener("click", () => {
             this.onGroupDelete(editGroupModal.dataset.groupId); 
             editGroupModal.close();
+        });
+
+        // init add and remove task input buttons
+        const addTaskInput = editGroupModal.querySelector(".task-add-icon");
+        const removeTaskInput = editGroupModal.querySelector(".task-remove-icon");
+
+        addTaskInput.addEventListener("click", () => {
+            taskInputList.insertAdjacentHTML("beforeend", this._createTaskInputItemHTML().trim());
+            taskInputList.scrollTop = taskInputList.scrollHeight;
+        });
+
+        removeTaskInput.addEventListener("click", () => {
+            if (taskInputList.children.length > 1) {
+                taskInputList.removeChild(taskInputList.lastChild);
+            }
         });
     }
 
