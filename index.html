@@ -105,6 +105,26 @@
                 </div>
                 <div class="main__column"></div>
                 <div class="main__column"></div>
+                <dialog id="edit-group-modal" class="app-modal">
+                    <p class="modal-title">Editar lista de tarefas</p>
+                    <input id="edit-group-input" class="modal-input" type="text" placeholder="Título"/>
+                    <div class="modal-input-list">
+                        <!--
+                        <div class="modal-input-wrapper">
+                            <input class="modal-input modal-input--task" type="text" placeholder="tarefa"/>
+                            <span class="material-symbols-outlined drag-task-icon unselectable">drag_indicator</span>
+                        </div>
+                        -->
+                    </div>
+                    <div class="modal-group-buttons">
+                        <span class="material-symbols-outlined task-add-icon unselectable">add</span>
+                        <span class="material-symbols-outlined task-remove-icon unselectable">remove</span>
+                    </div>
+                    <div class="modal-buttons">
+                        <button id="edit-group-cancel" class="modal-cancel">Deletar</button>
+                        <button id="edit-group-submit" class="modal-submit">Editar</button>
+                    </div>
+                </dialog>    
             </main>
 
         </div>

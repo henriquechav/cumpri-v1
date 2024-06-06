@@ -16,6 +16,7 @@ export default class TasksView {
         this._initCreateFrameModal();
         this._initEditFrameModal();
         this._initCreateGroupModal();
+        this._initEditGroupModal();
     }
 
     
@@ -123,6 +124,36 @@ export default class TasksView {
                     this.onTaskDone(groupId, taskPos);
                 });   
             }
+        });
+
+        // add edit group icon functionality
+        const editGroupIconList = groupListContainer.querySelectorAll(".edit-group-icon");
+        const editGroupModal = this.root.querySelector("#edit-group-modal");
+        const editGroupInput = editGroupModal.querySelector("#edit-group-input");
+        const editGroupButton = editGroupModal.querySelector("#edit-group-submit");
+        const deleteGroupButton = editGroupModal.querySelector("#edit-group-cancel");
+        const taskInputList = editGroupModal.querySelector(".modal-input-list");
+
+        editGroupIconList.forEach(editGroupIcon => {
+            const groupClicked = groupList.find(group => group.id == editGroupIcon.dataset.groupId); 
+            
+            editGroupIcon.addEventListener("click", () => {
+                editGroupModal.dataset.groupId = groupClicked.id;
+                editGroupModal.dataset.groupTitle = groupClicked.title;
+
+                editGroupInput.value = groupClicked.title;
+
+                taskInputList.innerHTML = "";
+
+                for (const task of groupClicked.taskList) {
+                    taskInputList.insertAdjacentHTML("beforeend", this._createTaskInputItemHTML());
+                    const taskInputWrapper = taskInputList.lastElementChild;
+                    taskInputWrapper.firstElementChild.value = task.desc;
+                    taskInputWrapper.dataset.taskDone = task.done;
+                }
+
+                editGroupModal.showModal();
+            });
         });
     }
 
@@ -247,6 +278,39 @@ export default class TasksView {
         });
     }
 
+    _initEditGroupModal() {
+        const editGroupModal = this.root.querySelector("#edit-group-modal");
+        const editGroupInput = editGroupModal.querySelector("#edit-group-input");
+        const editGroupButton = editGroupModal.querySelector("#edit-group-submit");
+        const deleteGroupButton = editGroupModal.querySelector("#edit-group-cancel");
+        const taskInputList = editGroupModal.querySelector(".modal-input-list");
+
+        editGroupButton.addEventListener("click", () => {
+            const groupId = editGroupModal.dataset.groupId;
+            const groupTitle = editGroupInput.value.trim();
+            const taskList = [];
+
+            taskInputList.querySelectorAll(".modal-input-wrapper").forEach(taskWrapper => {
+                if (taskWrapper.firstElementChild.value != "") {
+                    taskList.push({
+                        desc: taskWrapper.firstElementChild.value.trim(),
+                        done: taskWrapper.dataset.taskDone ? taskWrapper.dataset.taskDone : false
+                    });
+                }
+            });
+            
+            if (groupTitle != "") {
+                this.onGroupUpdate(groupId, groupTitle, taskList);
+                editGroupModal.close();
+            }
+        });
+
+        deleteGroupButton.addEventListener("click", () => {
+            this.onGroupDelete(editGroupModal.dataset.groupId); 
+            editGroupModal.close();
+        });
+    }
+
     _createFrameItemHTML(frameName, frameId) {
         return `
             <li class="button sidebar__frame-list-item" data-frame-id="${frameId}" data-frame-name="${frameName}">
@@ -259,7 +323,7 @@ export default class TasksView {
     _createTaskInputItemHTML() {
         return `
             <div class="modal-input-wrapper">
-                    <input class="modal-input modal-input--task" type="text" placeholder="tarefa"/>
+                <input class="modal-input modal-input--task" type="text" placeholder="tarefa"/>
                 <span class="material-symbols-outlined drag-task-icon unselectable">drag_indicator</span>
             </div>
         `;
@@ -272,7 +336,10 @@ export default class TasksView {
                     <div class="task-wrapper__progress-bar-fill" style="width: ${group.percentage}%;"></div>
                     <span class="task-wrapper__progress-bar-percentage">${Math.trunc(group.percentage)}%</span>
                 </div>
-                <h3 class="task-wrapper__title">${group.title}</h3>
+                <h3 class="task-wrapper__title">
+                    ${group.title}
+                    <span class="material-symbols-outlined unselectable edit-group-icon" data-group-id="${group.id}">more_vert</span>
+                </h3>
                 ${this._createTaskListHTML(group.taskList, group.id)}
             </div> 
         `;

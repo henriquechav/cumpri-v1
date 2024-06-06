@@ -104,6 +104,29 @@ export default class App {
                 this._refreshTasks();
                 const selectedFrame = this.frameList.find(frame => frame.id == this.activeFrame.id);
                 this._setActiveFrame(selectedFrame);
+            },
+            onGroupDelete: groupId => {
+                TasksAPI.deleteGroup(this.activeFrame.id, groupId);
+
+                this._refreshTasks();
+
+                const selectedFrame = this.frameList.find(frame => frame.id == this.activeFrame.id);
+                this._setActiveFrame(selectedFrame);
+            },
+            onGroupUpdate: (groupId, groupTitle, taskList) => {
+                taskList.forEach(task => {
+                    task.done = task.done == "true";
+                });
+                
+                TasksAPI.updateGroup(this.activeFrame.id, {
+                    id: groupId,
+                    title: groupTitle,
+                    taskList: taskList
+                });
+
+                this._refreshTasks();
+                const selectedFrame = this.frameList.find(frame => frame.id == this.activeFrame.id);
+                this._setActiveFrame(selectedFrame);
             }
         };
     }
