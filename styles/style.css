@@ -36,7 +36,7 @@
 .button {
   text-wrap: nowrap;
   position: relative;
-  font-size: 1.2rem;
+  font-size: clamp(.8rem, 1.5vw, 1.2rem);
   font-weight: 400;
   padding: 0.5rem;
   margin-left: 2rem;
@@ -47,6 +47,14 @@
 }
 .button:hover {
   cursor: pointer;
+}
+
+.centered-message {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #create-frame-button {
@@ -136,6 +144,7 @@
 .modal-input--task {
   border-radius: 10px;
   background-color: var(--light-color);
+  line-height: 1rem;
   color: var(--dark-color);
 }
 .modal-input--task:focus {
@@ -288,6 +297,7 @@
   margin: 0;
   padding: 0;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 .sidebar__frame-list-item {
   width: fit-content;
@@ -298,7 +308,8 @@
 }
 
 .sidebar__frame-list-item--selected {
-  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 };
 
 .sidebar__frame-list-item span {
@@ -390,4 +401,77 @@
 
 .task-wrapper__task--done {
   text-decoration: line-through;
+}
+
+@media screen and (max-width: 1024px) {
+  .main {
+    flex-direction: column;
+    overflow: scroll;
+  }
+  .main__column {
+    height: fit-content;
+    overflow: visible;
+  }
+  .sidebar {
+    width: 200px;
+  }
+  .sidebar--hidden {
+    width: 0px;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 481px) {
+  .header {
+    position: fi;
+  }
+  
+  .app-panel {
+    flex-direction: column;
+    width: 100vw;
+  }
+
+  .main,
+  .main__column {
+    width: 100%;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: fixed;
+    background-color: var(--white-color);
+    height: fit-content;
+    border-bottom: 1px solid var(--light-color);
+    transition: 500ms;
+    z-index: 1;
+  }
+  .sidebar--hidden {
+    height: 0px;
+    overflow: hidden;
+  }
+  .header__user-icon {
+    font-size: 10vw;
+  }
+  .button {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    flex-direction: row;
+    position: sticky;
+  }
+  .header__experience-bar,
+  .header__user-icon {
+    display: none;
+  }
+  .sidebar {
+    position: relative;
+    z-index: 0;
+  }
+  .button {
+    width: 60%;
+    text-align: center;
+  }
 }

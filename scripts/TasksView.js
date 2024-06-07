@@ -89,6 +89,15 @@ export default class TasksView {
             groupColumn.innerHTML = "";
         });
 
+        // if there isn't any group, put a centered message
+        if (groupList.length == 0) {
+            groupColumnList[1].innerHTML = `
+                <p class="centered-message">
+                    Crie uma lista de tarefas!
+                </p>
+            `;
+        }
+
         // distribute groups into the three columns
         let cnt = 0; // counter
         for (const group of groupList) {
