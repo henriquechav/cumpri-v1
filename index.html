@@ -13,8 +13,8 @@
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="/styles/normalize.css"/>
-    <link rel="stylesheet" href="/styles/style.css"/>
+    <link rel="stylesheet" href="./styles/normalize.css"/>
+    <link rel="stylesheet" href="./styles/style.css"/>
     <title>Questify</title>
 </head>
 <body>
@@ -23,28 +23,7 @@
         <header class="header">
             <span class="material-symbols-outlined header__menu-icon unselectable">menu</span>
             <h1 class="header__logo unselectable">Questify</h1>
-            <button id="create-group-button" class="button header__button">
-                <span class="material-symbols-outlined button-icon">add</span>
-                Criar tarefas
-            </button>
-            <dialog id="create-group-modal" class="app-modal">
-                <p class="modal-title">Criar lista de tarefas</p>
-                <input id="create-group-input" class="modal-input" type="text" placeholder="Título"/>
-                <div class="modal-input-list">
-                    <div class="modal-input-wrapper">
-                        <input class="modal-input modal-input--task" type="text" placeholder="tarefa"/>
-                        <span class="material-symbols-outlined drag-task-icon unselectable">drag_indicator</span>
-                    </div>
-                </div>
-                <div class="modal-group-buttons">
-                    <span class="material-symbols-outlined task-add-icon unselectable">add</span>
-                    <span class="material-symbols-outlined task-remove-icon unselectable">remove</span>
-                </div>
-                <div class="modal-buttons">
-                    <button id="create-group-cancel" class="modal-cancel">Cancelar</button>
-                    <button id="create-group-submit" class="modal-submit">Concluir</button>
-                </div>
-            </dialog>
+
             <div class="header__experience-bar">
                 <small class="header__user-level">Nível 0</small>
                 <div class="header__bar"><div class="header__fill-bar"></div></div>
@@ -55,14 +34,26 @@
         <div id="app-panel" class="app-panel">
 
             <aside id="sidebar" class="sidebar">
+                
+                <button id="create-group-button" class="button header__button">
+                    <span class="material-symbols-outlined button-icon">add</span>
+                    Criar tarefas
+                </button>
+
+                <button id="create-frame-button" class="button">
+                    <span class="material-symbols-outlined button-icon">add</span>
+                    Criar quadro
+                </button>
+
                 <ul class="sidebar__frame-list">
-                    <!-- 
+                    <!-- inserted dinamically
                     <li class="button sidebar__frame-list-item">
                         <span class="material-symbols-outlined button-icon">edit</span>
                         Tarefas
                     </li> 
                     -->
                 </ul>
+
                 <dialog id="edit-frame-modal" class="app-modal sidebar__edit-modal">
                     <p class="modal-title">Editar quadro</p>
                     <input id="edit-frame-input" class="modal-input" type="text"/>
@@ -71,10 +62,7 @@
                         <button id="edit-frame-submit" class="modal-submit">Editar</button>
                     </div>
                 </dialog>
-                <button id="create-frame-button" class="button">
-                    <span class="material-symbols-outlined button-icon">add</span>
-                    Criar quadro
-                </button>
+
                 <dialog id="create-frame-modal" class="app-modal">
                     <p class="modal-title">Criar novo quadro</p>
                     <input id="create-frame-input" class="modal-input" type="text" />
@@ -83,11 +71,30 @@
                         <button id="create-frame-submit" class="modal-submit">Concluir</button>
                     </div>
                 </dialog>
+
+                <dialog id="create-group-modal" class="app-modal">
+                    <p class="modal-title">Criar lista de tarefas</p>
+                    <input id="create-group-input" class="modal-input" type="text" placeholder="Título"/>
+                    <div class="modal-input-list">
+                        <div class="modal-input-wrapper">
+                            <input class="modal-input modal-input--task" type="text" placeholder="tarefa"/>
+                            <span class="material-symbols-outlined drag-task-icon unselectable">drag_indicator</span>
+                        </div>
+                    </div>
+                    <div class="modal-group-buttons">
+                        <span class="material-symbols-outlined task-add-icon unselectable">add</span>
+                        <span class="material-symbols-outlined task-remove-icon unselectable">remove</span>
+                    </div>
+                    <div class="modal-buttons">
+                        <button id="create-group-cancel" class="modal-cancel">Cancelar</button>
+                        <button id="create-group-submit" class="modal-submit">Concluir</button>
+                    </div>
+                </dialog>
             </aside>
       
             <main class="main">
                 <div class="main__column">
-                    <!-- 
+                    <!-- inserted dinamically
                     <div class="main__task-wrapper">
                         <div class="task-wrapper__progress-bar">
                             <div class="task-wrapper__progress-bar-fill"></div>
@@ -105,11 +112,12 @@
                 </div>
                 <div class="main__column"></div>
                 <div class="main__column"></div>
+
                 <dialog id="edit-group-modal" class="app-modal">
                     <p class="modal-title">Editar lista de tarefas</p>
                     <input id="edit-group-input" class="modal-input" type="text" placeholder="Título"/>
                     <div class="modal-input-list">
-                        <!--
+                        <!-- inserted dinamically
                         <div class="modal-input-wrapper">
                             <input class="modal-input modal-input--task" type="text" placeholder="tarefa"/>
                             <span class="material-symbols-outlined drag-task-icon unselectable">drag_indicator</span>

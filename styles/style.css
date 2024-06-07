@@ -2,20 +2,14 @@
   --white-color: #fff;
   --light-color: #f0edee;
   --dark-color: #0a090c;
-  --orange-color: #f9a620;
   --green-color: #548c2f;
   --green-color-transparent: #548c2f4b;
-  --purple-color: #8f3985;
-  --red-color: #a11313;
   --font-family: "Nunito";
 }
 
 * {
   font-family: var(--font-family);
-  box-sizing: border-box;
-}
-
-body {
+  box-sizing: border-box;    
   color: var(--dark-color);
 }
 
@@ -40,6 +34,7 @@ body {
   left: -0.8rem;
 }
 .button {
+  text-wrap: nowrap;
   position: relative;
   font-size: 1.2rem;
   font-weight: 400;
@@ -52,6 +47,33 @@ body {
 }
 .button:hover {
   cursor: pointer;
+}
+
+#create-frame-button {
+  font-style: italic;
+  padding-left: 1.4rem;
+  transition: 200ms;
+}
+#create-frame-button .button-icon {
+  left: 0.2rem;
+}
+
+#create-group-button {
+  background-color: var(--green-color);
+  color: var(--white-color);
+  font-weight: 500;
+  padding-left: 1.4rem;
+  transition: 200ms;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+#create-group-button:hover {
+  background-color: var(--green-color-transparent);
+}
+#create-group-button .button-icon {
+  left: 0.2rem;
+  color: var(--white-color);
+  font-weight: 500;
 }
 
 /* modals */
@@ -141,13 +163,13 @@ body {
 /* ------ ICONS ------ */
 
 .header__menu-icon {
-  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" -25, "opsz" 24;
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
   margin: 1rem;
   color: var(--dark-color);
 }
 
 .header__user-icon {
-  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" -25, "opsz" 0;
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" -25, "opsz" 24;
   font-size: 3rem;
 }
 
@@ -170,7 +192,7 @@ body {
 
 .header__logo {
   font-size: 1.4rem;
-  font-weight: 400;
+  font-weight: 400;  
 }
 
 .header__experience-bar {
@@ -216,12 +238,11 @@ body {
   width: 20vw;
   margin: 0;
   padding: 0;
-  border-right: 1px solid var(--light-color);
   transition: 350ms;
   display: flex;
   flex-direction: column;
   align-items: start;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .sidebar--hidden {
@@ -230,9 +251,11 @@ body {
 }
 
 .sidebar__frame-list {
+  width: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-y: scroll;
 }
 .sidebar__frame-list-item {
   width: fit-content;

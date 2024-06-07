@@ -153,6 +153,77 @@ export default class TasksView {
                 editGroupModal.showModal();
             });
         });
+
+        // add drag functionalities
+        // buggy for now
+        // this._makeGroupsDraggable();
+    }
+
+    _makeGroupsDraggable() {
+        // add drag event listener to progress bar
+        const groupsContainer = this.root.querySelector(".main");
+        const progressBarList = groupsContainer.querySelectorAll(".task-wrapper__progress-bar");
+        let beingDragged;
+
+        progressBarList.forEach(progressBar => {
+            progressBar.addEventListener("dragstart", (e) => {
+                beingDragged = e.target.parentElement;
+                groupsContainer.style.zIndex = 2;
+                e.target.parentElement.style.opacity = 0.5;
+            });
+            progressBar.addEventListener("dragend", (e) => {
+                e.target.parentElement.style.opacity = 1;
+                groupsContainer.style.zIndex = 0;
+            });
+        });
+
+        // make columns receptive
+        const groupColumnList = this.root.querySelectorAll(".main__column");
+
+        groupColumnList.forEach(groupColumn => {
+            groupColumn.addEventListener("dragenter", (e) => {
+                e.preventDefault();
+                groupColumn.classList.add("main__column--highlighted");
+            });
+            groupColumn.addEventListener("dragleave", (e) => {
+                e.preventDefault();
+                groupColumn.classList.remove("main__column--highlighted");
+            });
+            groupColumn.addEventListener("drop", (e) => {
+                e.preventDefault();
+                groupColumn.classList.remove("main__column--highlighted");
+                groupColumn.append(beingDragged);
+            });
+            groupColumn.addEventListener("dragover", (e) => {
+                // prevent default to work
+                e.preventDefault();
+            });
+        });
+
+        // make task wrappers receptive
+        const taskWrapperList = groupsContainer.querySelectorAll(".main__task-wrapper");
+
+        taskWrapperList.forEach(taskWrapper => {
+            const wrapperColumn = taskWrapper.parentElement;
+            
+            taskWrapper.addEventListener("dragenter", (e) => {
+                e.preventDefault();
+                wrapperColumn.classList.add("main__column--highlighted");
+            });
+            taskWrapper.addEventListener("dragleave", (e) => {
+                e.preventDefault();
+                wrapperColumn.classList.remove("main__column--highlighted");
+            });
+            taskWrapper.addEventListener("drop", (e) => {
+                e.preventDefault();
+                wrapperColumn.classList.remove("main__column--highlighted");
+                wrapperColumn.append(beingDragged);
+            });
+            taskWrapper.addEventListener("dragover", (e) => {
+                // prevent default to work
+                e.preventDefault();
+            });
+        });
     }
 
     _initCreateFrameModal() {
@@ -347,7 +418,7 @@ export default class TasksView {
             <div class="main__task-wrapper" data-group-id="${group.id}">
                 <div class="task-wrapper__progress-bar">
                     <div class="task-wrapper__progress-bar-fill" style="width: ${group.percentage}%;"></div>
-                    <span class="task-wrapper__progress-bar-percentage">${Math.trunc(group.percentage)}%</span>
+                    <span class="task-wrapper__progress-bar-percentage unselectable">${Math.trunc(group.percentage)}%</span>
                 </div>
                 <h3 class="task-wrapper__title">
                     ${group.title}
