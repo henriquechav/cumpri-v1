@@ -130,7 +130,7 @@ export default class TasksView {
         const editGroupIconList = groupListContainer.querySelectorAll(".edit-group-icon");
         const editGroupModal = this.root.querySelector("#edit-group-modal");
         const editGroupInput = editGroupModal.querySelector("#edit-group-input");
-        const taskInputList = editGroupModal.querySelector(".modal-input-list");
+        const taskInputList = editGroupModal.querySelector("#edit-group-input-list");
 
         editGroupIconList.forEach(editGroupIcon => {
             const groupClicked = groupList.find(group => group.id == editGroupIcon.dataset.groupId); 
@@ -144,7 +144,7 @@ export default class TasksView {
                 taskInputList.innerHTML = "";
 
                 for (const task of groupClicked.taskList) {
-                    taskInputList.insertAdjacentHTML("beforeend", this._createTaskInputItemHTML());
+                    taskInputList.insertAdjacentHTML("beforeend", this._createTaskInputItemHTML().trim());
                     const taskInputWrapper = taskInputList.lastElementChild;
                     taskInputWrapper.firstElementChild.value = task.desc;
                     taskInputWrapper.dataset.taskDone = task.done;
@@ -160,6 +160,8 @@ export default class TasksView {
     }
 
     _makeGroupsDraggable() {
+        // THIS FUNCTION CALL IS DISABLED FOR NOW
+
         // add drag event listener to progress bar
         const groupsContainer = this.root.querySelector(".main");
         const progressBarList = groupsContainer.querySelectorAll(".task-wrapper__progress-bar");
@@ -285,7 +287,7 @@ export default class TasksView {
         const createGroupCancel = this.root.querySelector("#create-group-cancel");
         const createGroupInput = this.root.querySelector("#create-group-input");
 
-        const taskInputContainer = this.root.querySelector(".modal-input-list");
+        const taskInputContainer = this.root.querySelector("#create-group-input-list");
 
         createGroupButton.addEventListener("click", () => {
             createGroupModal.showModal();
@@ -352,7 +354,7 @@ export default class TasksView {
         const editGroupInput = editGroupModal.querySelector("#edit-group-input");
         const editGroupButton = editGroupModal.querySelector("#edit-group-submit");
         const deleteGroupButton = editGroupModal.querySelector("#edit-group-cancel");
-        const taskInputList = editGroupModal.querySelector(".modal-input-list");
+        const taskInputList = editGroupModal.querySelector("#edit-group-input-list");
 
         editGroupButton.addEventListener("click", () => {
             const groupId = editGroupModal.dataset.groupId;

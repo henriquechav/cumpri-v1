@@ -87,7 +87,7 @@
 }
 .modal-title {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0.5rem 0;
 }
 .modal-input {
@@ -95,11 +95,18 @@
   margin: 0.5rem 0;
   padding: 0.5rem 0.8rem;
   border: none;
+  background-color: var(--green-color);
+  color: var(--white-color);
+  border-radius: 5px;
 }
 .modal-input:focus {
   outline: none;
-  border-bottom: 2px solid var(--green-color);
 }
+.modal-input::placeholder {
+  opacity: .5;
+  color: var(--white-color);
+}
+
 .modal-buttons {
   display: flex;
   justify-content: end;
@@ -126,23 +133,48 @@
 .modal-input-wrapper {
   position: relative;
 }
+.modal-input--task {
+  border-radius: 10px;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
 .modal-input--task:focus {
   border-bottom: none;
 }
+.modal-input--task::placeholder {
+  opacity: .5;
+  color: var(--dark-color);
+}
+
 .drag-task-icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: .5rem;
+  opacity: .8;
 }
 .drag-task-icon:hover {
   cursor: grab;
 }
 .modal-group-buttons span {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
   font-size: 1.2rem;
+  opacity: .8;
+  background-color: var(--green-color);
+  color: var(--white-color);
+  border-radius: 50%;
 }
 .modal-group-buttons span:hover {
   cursor: pointer;
+}
+
+.modal-submit {
+  color: var(--green-color);
+}
+
+#edit-frame-modal .modal-cancel,
+#edit-group-modal .modal-cancel {
+  color: red;
 }
 
 /* scrollbar */
@@ -331,6 +363,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  right: 1rem;
 }
 .edit-group-icon:hover {
   cursor: pointer;
