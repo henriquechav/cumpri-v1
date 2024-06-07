@@ -156,7 +156,12 @@ export default class TasksView {
                     taskInputList.insertAdjacentHTML("beforeend", this._createTaskInputItemHTML().trim());
                     const taskInputWrapper = taskInputList.lastElementChild;
                     taskInputWrapper.firstElementChild.value = task.desc;
+                    
                     taskInputWrapper.dataset.taskDone = task.done;
+                    if (task.done) {
+                        taskInputWrapper.firstElementChild.disabled = true;
+                        taskInputWrapper.classList.add("modal-input-wrapper--done");
+                    }
                 }
 
                 editGroupModal.showModal();
@@ -165,6 +170,7 @@ export default class TasksView {
 
         // add drag functionalities
         // buggy for now
+
         // this._makeGroupsDraggable();
     }
 

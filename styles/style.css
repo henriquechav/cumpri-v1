@@ -141,6 +141,10 @@
 .modal-input-wrapper {
   position: relative;
 }
+.modal-input-wrapper--done input {
+  background-color: var(--green-color-transparent);
+  text-decoration: line-through;
+}
 .modal-input--task {
   border-radius: 10px;
   background-color: var(--light-color);
